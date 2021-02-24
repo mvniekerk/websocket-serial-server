@@ -258,7 +258,7 @@ mod tests {
       msg: "Broadcast all!".to_string(),
     };
     let mut all_res = sub_manager.broadcast_message(all_subscribers_msg.clone());
-    assert!(all_res.len() == 0, "There should be no errors");
+    assert!(all_res.is_empty(), "There should be no errors");
     should_get_msg(&sub1_channel.1, &all_subscribers_msg, "Subscriber 1");
     should_get_msg(&sub2_channel.1, &all_subscribers_msg, "Subscriber 2");
     // Send message to one subscriber
@@ -272,7 +272,7 @@ mod tests {
     should_not_get_a_msg(&sub2_channel.1, "Subscriber 2");
     // Send message to subscribers of a given port
     all_res = sub_manager.broadcast_message_for_port(&"/dev/ttyUSB2".to_string(), sub1_msg.clone());
-    assert!(all_res.len() == 0, "There should be no errors");
+    assert!(all_res.is_empty(), "There should be no errors");
     should_get_msg(&sub1_channel.1, &sub1_msg, "Subscriber 1");
     should_not_get_a_msg(&sub2_channel.1, "Subscriber 2");
     // unsubscribe sub1 from /dev/ttyUSB2
@@ -281,7 +281,7 @@ mod tests {
       .expect("remvoving sub1 from port should not fail.");
     // No one should get message on ttyUSB2 now
     all_res = sub_manager.broadcast_message_for_port(&"/dev/ttyUSB2".to_string(), sub1_msg.clone());
-    assert!(all_res.len() == 0, "There should be no errors");
+    assert!(all_res.is_empty(), "There should be no errors");
     should_not_get_a_msg(&sub1_channel.1, "Subscriber 1");
     should_not_get_a_msg(&sub2_channel.1, "Subscriber 2");
   }

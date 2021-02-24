@@ -57,13 +57,13 @@ impl TomlWsssConfig {
   pub fn to_config(self) -> Result<WsssConfig> {
     let addr_string: String = self.bind_address.unwrap_or(DEFAULT_BIND_ADDR.to_string());
 
-    let ip_addr = Ipv4Addr::from_str(&addr_string)?;
+    let bind_address = Ipv4Addr::from_str(&addr_string)?;
     // .map_err(|e| ErrorKind::IpAddr(e).into())?;
 
     Ok(WsssConfig {
       http_port: self.http_port.unwrap_or(DEFAULT_HTTP_PORT),
       ws_port: self.ws_port.unwrap_or(DEFAULT_WS_PORT),
-      bind_address: ip_addr,
+      bind_address,
     })
   }
 
@@ -80,14 +80,14 @@ impl TomlWsssConfig {
   /// Parse the command line returning a config with
   /// defaults overridden by commandline values.
   pub fn parse_cmdline() -> TomlWsssConfig {
-    let mut port: Option<u32> = None;
+    let mut http_port: Option<u32> = None;
     let mut ws_port: Option<u32> = None;
     let mut bind_address: Option<String> = None;
 
     {
       let mut ap = ArgumentParser::new();
       ap.set_description("Provide access to serial ports over JSON Websockets");
-      ap.refer(&mut port)
+      ap.refer(&mut http_port)
         .add_option(&["-p", "--http_port"], StoreOption, "Http Port");
       ap.refer(&mut ws_port)
         .add_option(&["-w", "--ws_port"], StoreOption, "Websocket Port");
@@ -100,9 +100,9 @@ impl TomlWsssConfig {
     }
 
     TomlWsssConfig {
-      http_port: port,
-      ws_port: ws_port,
-      bind_address: bind_address,
+      http_port,
+      ws_port,
+      bind_address,
     }
   }
 

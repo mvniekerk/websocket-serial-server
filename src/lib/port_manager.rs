@@ -6,13 +6,14 @@ use std::time::Duration;
 use serialport as sp;
 
 use crate::errors::*;
+use std::io::ErrorKind;
 
 /// Struct for containing Port information
 struct OpenPort {
   /// The opened serial port
   /// SerialPort is not Sized, so it makes hashmap mad
   /// and so we deal with these shennanigans
-  port: Box<sp::SerialPort>,
+  port: Box<dyn sp::SerialPort>,
 }
 
 impl OpenPort {

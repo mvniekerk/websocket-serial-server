@@ -20,7 +20,7 @@ pub struct DynamicSleep {
   _freq: u32,
   /// Period in microseconds
   _period_nanos: u32,
-  /// Last instand
+  /// Last instant
   last_instant: Option<Instant>,
   /// How many cycles
   cycles: u32,

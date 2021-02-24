@@ -1,4 +1,5 @@
 use crate::messages::{SerialRequest, SerialResponse};
+use std::error::Error;
 
 error_chain! {
 
