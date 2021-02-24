@@ -2,31 +2,31 @@
 edition = "2018"
 name = "websocket_serial_server"
 version = "0.2.0"
-authors = ["Daniel Joyce <daniel.a.joyce@gmail.com>"]
+authors = ["Daniel Joyce <daniel.a.joyce@gmail.com>", "Michael van Niekerk <mvniekerk@gmail.com>"]
 description = "A websocket server providing access to local serial ports"
 readme = "README.md"
 license-file = "LICENSE"
 
 [dependencies]
 argparse = "0.2.1"
-base64 = "0.5.1"
-daemonize = "0.2.3"
+base64 = "0.13.0"
+daemonize = "0.4.1"
 debug_stub_derive = "0.3.0"
-env_logger = "0.4.2"
-error-chain = "0.10.0"
-hyper = "0.10.9"
+env_logger = "0.8.3"
+error-chain = "0.12.4"
+hyper = "0.14.4"
 log = "0.3.7"
-rand = "0.3.15"
-serde = "1.0.2"
-serde_derive = "1.0.2"
-serde_json = "1.0.2"
-serialport = "2.3.0"
+rand = "0.8.3"
+serde = "1"
+serde_derive = "1"
+serde_json = "1"
+serialport = "4"
 thread-control = "0.1.2"
-toml = "0.4.1"
-websocket = "0.19.1"
+toml = "0.5.8"
+websocket = "0.26.2"
 
 [dev-dependencies]
-tempfile = "2.1.5"
+tempfile = "3"
 
 [lib]
 name="lib"

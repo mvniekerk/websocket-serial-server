@@ -1,12 +1,10 @@
 use std::collections::{HashMap, HashSet};
-use std::error::Error;
 use std::iter::FromIterator;
 use std::time::Duration;
 
 use serialport as sp;
 
 use crate::errors::*;
-use std::io::ErrorKind;
 
 /// Struct for containing Port information
 struct OpenPort {
@@ -64,16 +62,14 @@ impl PortManager {
     if self.is_port_open(port_name) {
       Ok(())
     } else {
-      let sp_settings = sp::SerialPortSettings {
-        baud_rate: sp::BaudRate::Baud115200,
-        data_bits: sp::DataBits::Eight,
-        flow_control: sp::FlowControl::None,
-        parity: sp::Parity::None,
-        stop_bits: sp::StopBits::One,
-        timeout: Duration::from_millis(1),
-      };
+      let sp_builder = sp::new(port_name, 115_200)
+          .data_bits(sp::DataBits::Eight)
+          .flow_control(sp::FlowControl::None)
+          .parity(sp::Parity::None)
+          .stop_bits(sp::StopBits::One)
+          .timeout(Duration::from_millis(1));
 
-      match sp::open_with_settings(&port_name, &sp_settings) {
+      match sp_builder.open() {
         Ok(serial_port) => {
           let open_port = OpenPort { port: serial_port };
           self.open_ports.insert(port_name.to_string(), open_port);
